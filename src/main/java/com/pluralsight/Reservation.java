@@ -27,6 +27,7 @@ public class Reservation {
         this.roomType = roomType;
     }
 
+    // Derived Getter
     public double getPrice() {
         if(roomType.equalsIgnoreCase("king")){
             this.price = 139.00;
@@ -48,6 +49,7 @@ public class Reservation {
         this.numberOfNights = numberOfNights;
     }
 
+    // Boolean Getter
     public boolean isWeekend(){
         return isWeekend;
     }
@@ -56,6 +58,7 @@ public class Reservation {
         this.isWeekend = isWeekend;
     }
 
+    // Derived Getter
     public double getReservationTotal(){
         return numberOfNights * price;
     }

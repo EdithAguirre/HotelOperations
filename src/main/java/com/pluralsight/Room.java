@@ -7,13 +7,15 @@ public class Room {
     // Data members
     private int numberOfBeds;
     private double price;
-    private boolean occupied;
+    private boolean isOccupied;
+    private boolean isDirty;
 
     // Constructor
-    public Room(int numberOfBeds, double price, boolean occupied) {
+    public Room(int numberOfBeds, double price, boolean isOccupied, boolean isDirty) {
         this.numberOfBeds = numberOfBeds;
         this.price = price;
-        this.occupied = occupied;
+        this.isOccupied = isOccupied;
+        this.isDirty = isDirty;
     }
 
     // Getters
@@ -27,11 +29,11 @@ public class Room {
 
     // Boolean Getters
     public boolean isOccupied(){
-        return occupied;
+        return isOccupied;
     }
 
     public boolean isDirty(){
-        return false;
+        return isDirty;
     }
     // A room is only available if it is clean and not currently occupied
     public boolean isAvailable(){

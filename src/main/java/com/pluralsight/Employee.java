@@ -1,3 +1,6 @@
+/*
+The Employee class is used to store and calculate payroll information about an employee
+ */
 package com.pluralsight;
 
 public class Employee {
@@ -60,15 +63,14 @@ public class Employee {
 
     // Derived Getters
     public double getTotalPay(){
-        return (hoursWorked * payRate) + (getOvertimeHours() * payRate * 1.5);
+        return (getRegularHours() * payRate) + (getOvertimeHours() * payRate * 1.5);
     }
 
     public float getRegularHours(){
-        return hoursWorked;
+        return 40;
     }
 
     public float getOvertimeHours(){
         return hoursWorked - 40;
     }
-
 }
