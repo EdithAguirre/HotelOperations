@@ -39,4 +39,23 @@ public class Room {
     public boolean isAvailable(){
         return !isDirty() && !isOccupied();
     }
+
+    // Methods
+    // Once a room has been checked in, it should be occupied and marked as dirty
+    public void checkIn(){
+        isOccupied = true;
+        isDirty = true;
+    }
+
+    // When a guest checks out of a room it must first be cleaned by a housekeeper
+    // before another guest can check into the room
+    public void checkOut(){
+        cleanRoom();
+        isOccupied = false;
+    }
+
+    public void cleanRoom(){
+        isDirty = false;
+    }
+
 }

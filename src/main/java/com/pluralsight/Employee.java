@@ -73,4 +73,16 @@ public class Employee {
     public float getOvertimeHours(){
         return hoursWorked - 40;
     }
+
+    // Methods
+    // Each time the employee punched in, we track their start time
+    public void punchIn(double time){
+
+    }
+
+    // When they punch out, we calculate how many hours they have worked and add that time
+    // to their hours worked
+    public  void punchOut(double time){
+
+    }
 }
