@@ -3,6 +3,10 @@ The Employee class is used to store and calculate payroll information about an e
  */
 package com.pluralsight;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 public class Employee {
     // Data fields
     private int employeeId;
@@ -12,6 +16,8 @@ public class Employee {
     private double hoursWorked;
     private double punchInTime;
     private double punchOutTime;
+    private LocalDateTime punchInLocalTime;
+    private LocalDateTime punchOutLocalTime;
 
     // Constructor
     public Employee(int employeeId, String name, String department, float payRate, float hoursWorked) {
@@ -84,7 +90,26 @@ public class Employee {
         return  (hoursWorked - 40);
     }
 
-    // Single method to handle punch in and punch out
+    // Overloaded method (parameterless)
+    public void punchTimeCard(){
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        if(punchInLocalTime == null && punchOutLocalTime == null) {
+            punchInLocalTime = LocalDateTime.now();
+        }
+        else if(punchOutLocalTime == null){
+            punchOutLocalTime = LocalDateTime.now();
+            if(punchOutLocalTime.isAfter(punchInLocalTime)){
+                setHoursWorked(hoursWorked + (punchInLocalTime.until(punchOutLocalTime, ChronoUnit.HOURS)));
+                punchInLocalTime = null;
+                punchOutLocalTime = null;
+            }
+            else{
+                System.out.println("Your punch out time occurs before punch in time, please re-enter punch out time.");
+            }
+        }
+    }
+
+    // Single method to handle punch in and punch out (with a parameter)
     public void punchTimeCard(double time){
         // if there is no punch in time registered, store it
         if(punchInTime == 0 && punchOutTime == 0){
