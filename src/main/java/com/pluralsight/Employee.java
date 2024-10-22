@@ -65,6 +65,11 @@ public class Employee {
 
     // Derived Getters
     public double getTotalPay(){
+        // If the employee worked fewer hours than their regular hours
+        if(hoursWorked < 40) {
+            return (hoursWorked * payRate);
+        }
+        // total pay working regular hours (with overtime if applicable)
         return (getRegularHours() * payRate) + (getOvertimeHours() * payRate * 1.5);
     }
 
@@ -79,22 +84,23 @@ public class Employee {
         return  (hoursWorked - 40);
     }
 
-    // Methods
-    // Each time the employee punched in, we track their start time
-    public void punchIn(double time){
-        this.punchInTime = time;
-    }
-
-    // When they punch out, we calculate how many hours they have worked and add that time
-    // to their hours worked
-    public  void punchOut(double time){
-        this.punchOutTime = time;
-            // if the punch out time is after the punch in time it will save the hours worked
-            if(punchOutTime > punchInTime) {
-                setHoursWorked(hoursWorked +(punchOutTime - punchInTime));
-            }
-            else{
+    // Single method to handle punch in and punch out
+    public void punchTimeCard(double time){
+        // if there is no punch in time registered, store it
+        if(punchInTime == 0 && punchOutTime == 0){
+            punchInTime = time;
+        // if there is a punch in time but no punch out time, store it and add hours worked
+        } else if(punchOutTime == 0) {
+            punchOutTime = time;
+            if (punchOutTime > punchInTime) {
+                setHoursWorked(hoursWorked + (punchOutTime - punchInTime));
+                punchInTime = 0;
+                punchOutTime = 0;
+            } else {
                 System.out.println("Your punch out time occurs before punch in time, please re-enter punch out time.");
             }
+        }
     }
+
+
 }
