@@ -8,8 +8,10 @@ public class Employee {
     private int employeeId;
     private String name;
     private String department;
-    private float payRate;
-    private float hoursWorked;
+    private double payRate;
+    private double hoursWorked;
+    private double punchInTime;
+    private double punchOutTime;
 
     // Constructor
     public Employee(int employeeId, String name, String department, float payRate, float hoursWorked) {
@@ -45,7 +47,7 @@ public class Employee {
         this.department = department;
     }
 
-    public float getPayRate() {
+    public double getPayRate() {
         return payRate;
     }
 
@@ -53,11 +55,11 @@ public class Employee {
         this.payRate = payRate;
     }
 
-    public float getHoursWorked() {
+    public double getHoursWorked() {
         return hoursWorked;
     }
 
-    public void setHoursWorked(float hoursWorked) {
+    public void setHoursWorked(double hoursWorked) {
         this.hoursWorked = hoursWorked;
     }
 
@@ -66,23 +68,33 @@ public class Employee {
         return (getRegularHours() * payRate) + (getOvertimeHours() * payRate * 1.5);
     }
 
-    public float getRegularHours(){
+    public double getRegularHours(){
         return 40;
     }
 
-    public float getOvertimeHours(){
-        return hoursWorked - 40;
+    public double getOvertimeHours(){
+        if(hoursWorked - 40 <= 0){
+            return 0;
+        }
+        return  (hoursWorked - 40);
     }
 
     // Methods
     // Each time the employee punched in, we track their start time
     public void punchIn(double time){
-
+        this.punchInTime = time;
     }
 
     // When they punch out, we calculate how many hours they have worked and add that time
     // to their hours worked
     public  void punchOut(double time){
-
+        this.punchOutTime = time;
+            // if the punch out time is after the punch in time it will save the hours worked
+            if(punchOutTime > punchInTime) {
+                setHoursWorked(hoursWorked +(punchOutTime - punchInTime));
+            }
+            else{
+                System.out.println("Your punch out time occurs before punch in time, please re-enter punch out time.");
+            }
     }
 }
